@@ -86,6 +86,8 @@ Requirements:
 
 Storage selection should be treated as an explicit architecture decision record, not an incidental implementation detail. The chosen storage layer must support deterministic migrations, backup/export, local-only operation, and a realistic path for sharing Titan data concepts with a future Swift/WebKit companion without binding that companion to Gecko internals.
 
+The local semantic search direction is documented separately in [`local-first-semantic-architecture.md`](./local-first-semantic-architecture.md). That plan currently favors SQLite + FTS5 + sqlite-vec, while borrowing ObjectBox's embedded/on-device storage discipline, Weaviate's hybrid retrieval and fusion model, and Meilisearch's embedding-template/cache ergonomics.
+
 ## Phase 5: AI provider abstraction
 
 Define AI as a service boundary, not a pile of feature-specific calls.
