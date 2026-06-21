@@ -81,7 +81,10 @@ Requirements:
 - migration tests;
 - no silent remote sync;
 - user-readable export format where practical;
+- storage technology selection documented before implementation, including cross-platform compatibility tradeoffs for SQLite, IndexedDB, Firefox storage APIs, and the future WebKit companion;
 - encryption-at-rest decision documented before sensitive AI memory ships.
+
+Storage selection should be treated as an explicit architecture decision record, not an incidental implementation detail. The chosen storage layer must support deterministic migrations, backup/export, local-only operation, and a realistic path for sharing Titan data concepts with a future Swift/WebKit companion without binding that companion to Gecko internals.
 
 ## Phase 5: AI provider abstraction
 
