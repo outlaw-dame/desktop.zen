@@ -66,6 +66,9 @@ npm ci
 npm run lint
 npm run test
 npm run lc
+npm run build:ui
 ```
+
+`npm run build:ui` is especially important because Titan is expected to make product-layer UI/UX changes before engine-level changes.
 
 For full browser builds, prefer explicit manual workflow dispatch until build time, cache requirements, and infrastructure requirements are understood.
