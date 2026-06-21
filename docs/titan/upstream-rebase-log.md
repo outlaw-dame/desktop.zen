@@ -1,6 +1,6 @@
 # Titan upstream rebase log
 
-Use this log for every sync from Zen Browser or Firefox-derived upstream changes.
+Use this log for every upstream sync from Zen Browser or Firefox-derived sources.
 
 ## Template
 
@@ -8,20 +8,34 @@ Use this log for every sync from Zen Browser or Firefox-derived upstream changes
 ## YYYY-MM-DD — upstream sync
 
 - Previous Titan base:
-- New Zen base:
-- Firefox product version before:
-- Firefox product version after:
+- New Zen ref/commit:
+- Firefox version before:
+- Firefox version after:
 - Surfer version before:
 - Surfer version after:
-- Sync command(s):
+- Security advisories reviewed:
 - Conflicts:
 - Conflict-resolution files:
-- Security advisories reviewed:
-- Validation commands:
-- Result:
-- Follow-up issues:
+- Build commands run:
+- Test commands run:
+- Release impact:
+- Notes:
 ```
 
 ## Entries
 
-No upstream syncs have been performed since Titan Phase 0 documentation began.
+### 2026-06-21 — phase 0 setup
+
+- Previous Titan base: inherited `dev` branch from `outlaw-dame/desktop.zen`.
+- New Zen ref/commit: no upstream sync performed in this change.
+- Firefox version before: inherited from `surfer.json`.
+- Firefox version after: unchanged.
+- Surfer version before: inherited from `package.json`.
+- Surfer version after: unchanged.
+- Security advisories reviewed: not yet reviewed in-repo; release is blocked until security/update process exists.
+- Conflicts: none.
+- Conflict-resolution files: none.
+- Build commands run: none; documentation-only change.
+- Test commands run: none; documentation-only change.
+- Release impact: no release should be produced from this branch.
+- Notes: Added Titan phase 0 documentation to make subsequent fork hygiene, CI, branding, local-first, AI, and WebKit planning reviewable.
