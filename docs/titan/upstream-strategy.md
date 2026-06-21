@@ -33,11 +33,37 @@ Recommended branch layout:
 dev                         # current default branch inherited from Zen
 titan/main                  # future reviewed Titan integration branch
 upstream/zen-dev            # local mirror of Zen dev when using a local clone
+titan/upstream-sync-*       # dedicated upstream sync branches
 titan/phase-*               # focused Titan work branches
 titan/feature-*             # product feature branches
 ```
 
-Until the project has validated build and release behavior, Titan work should land through focused PRs rather than direct commits to `dev`.
+Until the project has validated build and release behavior, Titan work should land through focused PRs rather than direct commits to `dev`. Upstream syncs should be performed on dedicated `titan/upstream-sync-*` branches, verified locally, recorded in the rebase log, and merged into the integration branch only through a reviewed pull request.
+
+## Upstream sync workflow
+
+Use a structured workflow for every Zen/Firefox sync:
+
+1. Create a dedicated upstream sync branch from the current Titan integration branch.
+2. Fetch the selected Zen upstream ref.
+3. Apply the upstream sync with the chosen strategy: rebase, merge, or Surfer-driven update.
+4. Resolve conflicts with minimal Titan-specific changes.
+5. Update `docs/titan/upstream-rebase-log.md` with base refs, versions, conflicts, validation commands, and security-review status.
+6. Run local validation before opening the PR.
+7. Open a reviewed PR back into the Titan integration branch.
+8. Do not mix product features into upstream sync PRs.
+
+Recommended local validation for an upstream sync:
+
+```text
+npm ci
+npm run lint
+npm run test
+npm run lc
+npm run build:ui
+```
+
+Full browser build validation should be run when infrastructure and time permit, especially before any public build.
 
 ## Rebase log requirement
 
