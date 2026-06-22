@@ -17,6 +17,7 @@ Titan should be treated as a product-layer fork first:
 - [`release-safety.md`](./release-safety.md) — release/update guardrails so Titan does not accidentally publish Zen-branded or unsafe artifacts.
 - [`architecture-roadmap.md`](./architecture-roadmap.md) — staged plan for UI/UX, local-first, AI, and future WebKit companion work.
 - [`foundation-plan.md`](./foundation-plan.md) — foundation pillars for Titan identity, CI, feature flags, product shell, local-first data, privacy, AI, security, and WebKit constraints.
+- [`extension-compatibility-plan.md`](./extension-compatibility-plan.md) — Firefox add-on baseline support, Chrome extension compatibility limits, Chrome Web Store stance, MV2/MV3 notes, and Titan-specific API constraints.
 - [`local-first-semantic-architecture.md`](./local-first-semantic-architecture.md) — SQLite + FTS5 + sqlite-vec plan, including what Titan emulates and improves from ObjectBox, Weaviate, and Meilisearch.
 - [`upstream-rebase-log.md`](./upstream-rebase-log.md) — template for tracking future upstream syncs.
 

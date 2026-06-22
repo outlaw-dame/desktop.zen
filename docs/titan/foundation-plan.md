@@ -1,6 +1,6 @@
 # Titan foundation plan
 
-This document defines the next foundation layer for Titan before product implementation begins. Titan should remain a product-layer browser fork first: build a safe identity, feature-flag system, local-first data model, privacy boundary, AI service boundary, and release discipline before modifying Gecko internals or shipping public binaries.
+This document defines the next foundation layer for Titan before product implementation begins. Titan should remain a product-layer browser fork first: build a safe identity, feature-flag system, local-first data model, privacy boundary, AI service boundary, extension compatibility policy, and release discipline before modifying Gecko internals or shipping public binaries.
 
 ## Foundation principle
 
@@ -145,6 +145,7 @@ Rules:
 - Product shell should not require semantic indexing or AI providers to exist.
 - UI work should be feature-flagged.
 - Shell surfaces should be rebase-friendly and avoid unnecessary engine changes.
+- Shell surfaces must account for inherited Firefox extension toolbar, panel, sidebar, and content-script behavior.
 
 Deliverables:
 
@@ -152,9 +153,40 @@ Deliverables:
 - first shell implementation plan;
 - keyboard command map;
 - settings map;
-- accessibility requirements.
+- accessibility requirements;
+- extension surface compatibility notes.
 
-### Pillar 5: Local-first data foundation
+### Pillar 5: Extension compatibility and Titan APIs
+
+Titan inherits Firefox WebExtensions support through Zen/Firefox. Chrome extension compatibility should be treated as compatibility-by-overlap, not as a full Chrome-equivalent platform.
+
+Scope:
+
+- Firefox add-on compatibility;
+- Chrome-oriented WebExtension compatibility limits;
+- Chrome Web Store stance;
+- MV2/MV3 behavior tracking against the current Firefox base;
+- extension toolbar/panel/sidebar interactions;
+- future Titan-specific extension APIs;
+- extension access to local-first/AI data.
+
+Rules:
+
+- Firefox add-ons are the baseline inherited extension ecosystem.
+- Do not advertise full Chrome extension support without implementation and testing.
+- Do not implement Chrome Web Store installation during the foundation phase.
+- Do not expose Titan local-first data, semantic index, assistant memory, raw SQL, or raw vector search to extensions by default.
+- Titan-specific extension APIs require a security/threat-model review first.
+
+Deliverables:
+
+- extension compatibility plan;
+- extension compatibility test matrix;
+- Titan-specific API policy;
+- extension permission model requirements;
+- extension interaction notes for product shell work.
+
+### Pillar 6: Local-first data foundation
 
 Titan needs a clear local data model before AI features start writing persistent memory.
 
@@ -187,7 +219,7 @@ Deliverables:
 - deletion propagation policy;
 - backup/restore policy.
 
-### Pillar 6: Local semantic retrieval
+### Pillar 7: Local semantic retrieval
 
 The current planned direction is SQLite + FTS5 + sqlite-vec.
 
@@ -217,7 +249,7 @@ Deliverables:
 - benchmark plan;
 - prototype plan outside Gecko internals.
 
-### Pillar 7: AI provider boundary
+### Pillar 8: AI provider boundary
 
 Titan's AI layer should be a provider abstraction, not hardcoded calls to one model or service.
 
@@ -261,7 +293,7 @@ Deliverables:
 - prompt/versioning policy;
 - context provenance model.
 
-### Pillar 8: Privacy, deletion, and trust boundaries
+### Pillar 9: Privacy, deletion, and trust boundaries
 
 Privacy should be part of Titan's architecture, not only UI preferences.
 
@@ -292,7 +324,7 @@ Deliverables:
 - diagnostics redaction policy;
 - AI context approval UX requirements.
 
-### Pillar 9: Security architecture
+### Pillar 10: Security architecture
 
 Titan should not expand the browser attack surface without clear boundaries.
 
@@ -324,7 +356,7 @@ Deliverables:
 - model supply-chain policy;
 - secure storage decision.
 
-### Pillar 10: WebKit companion constraints
+### Pillar 11: WebKit companion constraints
 
 Titan's desktop fork should not try to embed WebKit into Gecko. WebKit support should be a future companion target with shared concepts, not shared engine code.
 
@@ -354,13 +386,14 @@ Deliverables:
 The next docs should land in this order:
 
 1. `docs/titan/foundation-plan.md` — this document.
-2. `docs/titan/preferences-and-feature-flags.md` — Titan preference namespace and feature flag policy.
-3. `docs/titan/privacy-and-deletion-boundary.md` — privacy gates, deletion propagation, and AI context approval.
-4. `docs/titan/ai-provider-boundary.md` — local/remote providers, prompt registry, context builder, model registry.
-5. `docs/titan/security-threat-model.md` — privileged API, model supply chain, local DB, web content isolation.
-6. `docs/titan/product-shell-plan.md` — sidebar, assistant panel, settings, command palette, diagnostics.
-7. `docs/titan/build-and-ci-plan.md` — non-publishing CI, workflow quarantine, build verification.
-8. `docs/titan/adr/0001-local-semantic-index.md` — formal storage/search ADR.
+2. `docs/titan/extension-compatibility-plan.md` — Firefox add-on baseline support, Chrome compatibility limits, Chrome Web Store stance, and Titan-specific API policy.
+3. `docs/titan/preferences-and-feature-flags.md` — Titan preference namespace and feature flag policy.
+4. `docs/titan/privacy-and-deletion-boundary.md` — privacy gates, deletion propagation, and AI context approval.
+5. `docs/titan/ai-provider-boundary.md` — local/remote providers, prompt registry, context builder, model registry.
+6. `docs/titan/security-threat-model.md` — privileged API, model supply chain, local DB, web content isolation.
+7. `docs/titan/product-shell-plan.md` — sidebar, assistant panel, settings, command palette, diagnostics.
+8. `docs/titan/build-and-ci-plan.md` — non-publishing CI, workflow quarantine, build verification.
+9. `docs/titan/adr/0001-local-semantic-index.md` — formal storage/search ADR.
 
 ## Implementation sequence after documentation
 
@@ -368,12 +401,13 @@ The next docs should land in this order:
 2. Package metadata cleanup.
 3. Titan preference namespace.
 4. Product shell placeholders.
-5. Local data prototype outside Gecko internals.
-6. Semantic index prototype outside Gecko internals.
-7. Privacy/deletion tests.
-8. AI provider boundary prototype.
-9. Assistant UI integration.
-10. Deeper native integration review only after benchmarks.
+5. Extension compatibility test matrix.
+6. Local data prototype outside Gecko internals.
+7. Semantic index prototype outside Gecko internals.
+8. Privacy/deletion tests.
+9. AI provider boundary prototype.
+10. Assistant UI integration.
+11. Deeper native integration review only after benchmarks.
 
 ## Immediate next step
 
